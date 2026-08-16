@@ -53,7 +53,7 @@ UART_HandleTypeDef huart2;
 
 volatile uint16_t adc_buffer[WINDOW_SIZE];
 volatile uint8_t  buffer_index            = 0;
-volatile uint8_t  buffer_full              = 0;   // becomes 1 once we've wrapped around once
+volatile uint8_t  buffer_full             = 0;   // becomes 1 once we've wrapped around once
 volatile uint8_t  new_sample_ready        = 0;
 volatile uint8_t  paused                  = 0;           // 0 = running, 1 = paused
 volatile uint32_t last_press_time         = 0;  // remembers when we last accepted a press
