@@ -130,7 +130,16 @@ int main(void)
 	          if (!paused)      // if PC13 pressed not pressed
 	          {
 	              uint32_t sum = 0;
-	              uint8_t  count = buffer_full ? WINDOW_SIZE : buffer_index;
+	              uint8_t count = 0;
+
+	              if (buffer_full)
+	              {
+	                  count = WINDOW_SIZE;
+	              }
+	              else
+	              {
+	                  count = buffer_index;
+	              }
 
 	              for (uint8_t i = 0; i < count; i++)
 	              {
