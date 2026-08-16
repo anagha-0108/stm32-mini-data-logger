@@ -13,7 +13,7 @@ No hardware was available for this submission. Builds clean in CubeIDE 2.1.1,
 ## Design decisions
 
 **Analog input:** Used the internal temp sensor (`ADC_CHANNEL_TEMPSENSOR`) since I
-had no external pot to wire up. Per RM0383 and the datasheet, it needs at least
+had no external pot to wire up. According to the reference manual for STM32F411xC/E (RM0383) and the datasheet, it needs at least
 10µs of sampling time — the closest available step in CubeMX is 480 cycles, so
 that's what I used.
 
