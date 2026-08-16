@@ -110,9 +110,9 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  ADC->CCR |= ADC_CCR_TSVREFE;     // to power up the temperature sensor from power down mode
-  HAL_TIM_Base_Start(&htim2);      // start TIM2 counting -> generates periodic TRGO
-  HAL_ADC_Start_IT(&hadc1);        // arm ADC to convert on next trigger, IRQ on completion
+  ADC->CCR |= ADC_CCR_TSVREFE;     // to power up the temperature sensor from power-down mode
+  HAL_TIM_Base_Start(&htim2);      // start TIM2 counting 
+  HAL_ADC_Start_IT(&hadc1);        // ADC conversion on trigger from TIM2
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); // start PWM output on TIM3 CH1
   /* USER CODE END 2 */
 
@@ -138,7 +138,7 @@ int main(void)
 	              }
 	              else
 	              {
-	                  count = buffer_index;
+	                  count = buffer_index; // if the buffer has not yet received at least 8 values in the beginning 
 	              }
 
 	              for (uint8_t i = 0; i < count; i++)
@@ -149,9 +149,9 @@ int main(void)
 	              uint16_t filtered_value = sum / count;
 
 	              // PWM DUTY CYCLE
-	              uint16_t ccr_value = ((uint32_t)filtered_value * 999) / 4095; // to compute the capture compare register value
-	              __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, ccr_value);
-	              uint16_t pwm_percentage =((uint32_t) ccr_value *100)/ (999+1); // d% = CCR*100 /(ARR+1);
+	              uint16_t ccr_value = ((uint32_t)filtered_value * 999) / 4095; // to compute the capture compare  value
+	              __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, ccr_value); // write the ccr_value into the Capture/Compre register in TIM3
+	              uint16_t pwm_percentage =((uint32_t) ccr_value *100)/ (999+1); // duty% = CCR*100 /(ARR+1);
 
 	              // UART TRANSMISSION
 	              char uart_msg[64];
@@ -252,7 +252,7 @@ static void MX_ADC1_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
   sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;
+  sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;    //480 cycles so that there is enough sampling time for the temperature sensor 
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
