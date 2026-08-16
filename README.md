@@ -66,7 +66,7 @@ just for readability in the log.
 ## References
 - "Hands-On with STM32 Timers: Trigger Periodic ADC Conversions" —
   https://www.youtube.com/watch?v=Yt5cHkmtqlA
-- "STM32 Guide #3: PWM + Timers" — https://www.youtube.com/watch?v=AjN58ceQaF4
+- "STM32 Beginners Guide Part3: PWM, TIMERS, Frequency and Duty Cycle. LED Dimming with PWM example." — https://www.youtube.com/watch?v=zHWvFchXhvw
 - STM32F411 Reference Manual (RM0383) —
   https://www.st.com/resource/en/reference_manual/rm0383-stm32f411xce-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
 - STM32F411RE product page / datasheet —
