@@ -57,6 +57,7 @@ volatile uint8_t  buffer_full             = 0;   // becomes 1 once we've wrapped
 volatile uint8_t  new_sample_ready        = 0;
 volatile uint8_t  paused                  = 0;           // 0 = running, 1 = paused
 volatile uint32_t last_press_time         = 0;  // remembers when we last accepted a press
+volatile uint32_t sum                     = 0;
 #define DEBOUNCE_MS 80
 /* USER CODE END PV */
 
@@ -129,7 +130,7 @@ int main(void)
 
 	          if (!paused)      // if PC13 pressed not pressed
 	          {
-	              uint32_t sum = 0;
+	        
 	              uint8_t count = 0;
 
 	              if (buffer_full)
@@ -139,11 +140,6 @@ int main(void)
 	              else
 	              {
 	                  count = buffer_index; // if the buffer has not yet received at least 8 values in the beginning 
-	              }
-
-	              for (uint8_t i = 0; i < count; i++)
-	              {
-	                  sum += adc_buffer[i];
 	              }
 
 	              uint16_t filtered_value = sum / count;
@@ -433,10 +429,10 @@ static void MX_GPIO_Init(void)
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
     uint16_t sample = HAL_ADC_GetValue(&hadc1);   // read the converted 12-bit result out of ADC1's data register
-
+    sum -=adc_buffer[buffer_index]; 
     adc_buffer[buffer_index] = sample;            // store it at the current circular-buffer slot
-
-    buffer_index++;                                // advance to next slot
+    sum += sample;
+    buffer_index++;  // advance to next slot
     if (buffer_index >= WINDOW_SIZE)
     {
         buffer_index = 0;                          // wrap around
