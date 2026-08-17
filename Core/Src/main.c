@@ -57,7 +57,7 @@ volatile uint8_t  buffer_full             = 0;   // becomes 1 once we've wrapped
 volatile uint8_t  new_sample_ready        = 0;
 volatile uint8_t  paused                  = 0;           // 0 = running, 1 = paused
 volatile uint32_t last_press_time         = 0;  // remembers when we last accepted a press
-#define DEBOUNCE_MS 200
+#define DEBOUNCE_MS 80
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
