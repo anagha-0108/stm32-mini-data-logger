@@ -32,7 +32,7 @@ garbage/uninitialized slots early on.
 
 **Debounce:** Timestamp-based, using `HAL_GetTick()` — similar in spirit to
 Arduino's `millis()`, which I'd used before. The EXTI callback only toggles the
-`paused` flag if more than 200ms has passed since the last accepted press. B1 is
+`paused` flag if more than 80ms has passed since the last accepted press. B1 is
 active-low with an external pull-up on the board, so it's configured
 `GPIO_MODE_IT_FALLING` with no internal pull needed.
 
